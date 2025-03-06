@@ -142,5 +142,44 @@ awal:
             system("cls");
             goto awal;
         }
+
+        case '5': {
+            if (jmldt == 0) {
+                cout << "Belum ada data yang bisa diurutkan.\n";
+            } else {
+                string key;
+                cout << "Masukan nama pemilik yang di cari: "; getline(cin, key);
+
+                int index = sequentialSearch(data, jmldt, key);
+                if (index != -1){
+                    cout << "Data ditemukan pada index ke-" << index + 1 << "\n";
+                    cout << "Nomor Plat: " << data[index].plat << endl;
+                    cout << "Jenis Kendaraan: " << data[index].jenis << endl;
+                    cout << "Merk Kendaraan: " << data[index].merk << endl;
+                    cout << "Model Kendaraan: " << data[index].model << endl;
+                    cout << "Nama Pemilik: " << data[index].pemilik << endl;
+                    cout << "Tahun Produksi: " << data[index].tahun << endl;
+                } else {
+                    cout << "Data tidak ditemukan!\n" << endl;
+                }
+            }
+            cout << "Tekan Enter untuk kembali ke menu...";
+            cin.ignore();
+            cin.get();
+            system("cls");
+            goto awal;
+        }
+
+        case '6': {
+            cout << "Terimakasih sudah menggunakan program ini" << endl;
+        }
+
+        default:
+            cout << "Pilihan tidak valid, silahkan pilih lagi!" << endl;
+            cout << "Tekan Enter untuk kembali ke menu...";
+            cin.ignore();
+            cin.get();
+            system("cls");
+            goto awal;
     }
 }
