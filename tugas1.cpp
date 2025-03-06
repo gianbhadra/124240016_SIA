@@ -12,16 +12,34 @@ struct kendaraan {
     int tahun;
 };
 
-void bubblesort(kendaraan data[], int jmlhdt){
+void tampilkandata(kendaraan data[], int jmldt){
+    if (jmldt == 0) {
+        cout << "Belum ada data mahasiswa yang diinput." << endl;
+    } else {
+        cout << "=== Data Kendaraan ===" << endl;
+        for (int i = 0; i < jmldt; i++) {
+            cout << "\nKendaraan ke-" << i + 1 << endl;
+            cout << "Nomor Plat: " << data[i].plat << endl;
+            cout << "jenis Kendaraan: " << data[i].jenis << endl;
+            cout << "Merk Kendaraan: " << data[i].merk << endl;
+            cout << "Model Kendaraan: " << data[i].model << endl;
+            cout << "Nama Pemilik: " << data[i].pemilik << endl;
+            cout << "Tahun Produksi: " << data[i].tahun << endl;
+        }
+    }
+}
+
+void bubblesort(kendaraan data[], int jmldt){
     bool swapped;
-    for (int i = 0; i < jmlhdt - 1; i++){
-        for(int j = 0; j < jmlhdt - i - 1; j++){
+    for (int i = 0; i < jmldt - 1; i++){
+        swapped = false;
+        for(int j = 0; j < jmldt - i - 1; j++){
             if (data[j].tahun > data[j + 1].tahun){
                 swap(data[j],data[j + 1]);
                 swapped = true;
             }
         } if (!swapped) break;
-    } cout<<"Data telah diurutkan berdasarkan tahun produksi/n";
+    } cout<<"Data telah diurutkan berdasarkan tahun produksi\n";
 }
 
 void quicksort(kendaraan data[], int awal, int akhir) {
@@ -77,15 +95,16 @@ awal:
             cin.ignore();
 
             for (int i = 0; i < jmlinput && jmldt < 100; i++) {
-                cout << "\nKendaraan ke-" << jmldt + 1 << endl;
+                cout << "\nKendaraan ke-" << i + 1 << endl;
                 cout << "Masukan Nomor Plat: "; cin >> data[jmldt].plat;
                 cout << "Masukan Jenis Kendaraam (mobil/motor): "; cin >> data[jmldt].jenis;
                 cout << "Masukan Merk Kendaraan: "; cin >> data[jmldt].merk;
                 cout << "Masukan Model Kendaraan: "; cin >> data[jmldt].model;
                 cout << "Masukan Nama Pemilik: "; cin >> data[jmldt].pemilik;
                 cout << "Masukan Tahun Produksi: "; cin >> data[jmldt].tahun;
+                jmldt++;
             }
-            cout << "Tekan Enter untuk kembali ke menu...";
+            cout << "\nTekan Enter untuk kembali ke menu...";
             cin.ignore();
             cin.get();
             system("cls");
@@ -93,22 +112,8 @@ awal:
         }
         
         case '2': {
-            if (jmldt == 0) {
-                cout << "Belum ada data mahasiswa yang diinput." << endl;
-            } else {
-                cout << "=== Data Kendaraan ===" << endl;
-                for (int i = 0; i < jmldt; i++) {
-                    cout << "\nKendaraan ke-" << i + 1 << endl;
-                    cout << "Nomor Plat: " << data[i].plat << endl;
-                    cout << "jenis Kendaraan: " << data[i].jenis << endl;
-                    cout << "Merk Kendaraan: " << data[i].merk << endl;
-                    cout << "Model Kendaraan: " << data[i].model << endl;
-                    cout << "Nama Pemilik: " << data[i].pemilik << endl;
-                    cout << "Tahun Produksi: " << data[i].tahun << endl;
-                }
-            }
-            
-            cout << "Tekan Enter untuk kembali ke menu...";
+            tampilkandata(data, jmldt);
+            cout << "\nTekan Enter untuk kembali ke menu...";
             cin.ignore();
             cin.get();
             system("cls");
@@ -120,9 +125,11 @@ awal:
                 cout << "Belum ada data yang bisa diurutkan." << endl;
             } else {
                 bubblesort(data, jmldt);
-                cout << "Data berhasil diurutkan berdasarkan Tahun Produksi!" << endl;
+                cout << "Data setelah diurutkan: " << endl;
+                tampilkandata(data, jmldt);
+                cout << "\nData berhasil diurutkan berdasarkan Tahun Produksi!" << endl;
             }
-            cout << "Tekan Enter untuk kembali ke menu...";
+            cout << "\nTekan Enter untuk kembali ke menu...";
             cin.ignore();
             cin.get();
             system("cls");
@@ -134,9 +141,11 @@ awal:
                 cout << "Belum ada data yang bisa diurutkan.\n";
             } else {
                 quicksort(data, 0, jmldt - 1);
-                cout << "Data berhasil diurutkan menggunakan Quick Sort!\n";
+                cout << "Data setelah diurutkan: " << endl;
+                tampilkandata(data, jmldt);
+                cout << "\nData berhasil diurutkan menggunakan Quick Sort!\n";
             }
-            cout << "Tekan Enter untuk kembali ke menu...";
+            cout << "\nTekan Enter untuk kembali ke menu...";
             cin.ignore();
             cin.get();
             system("cls");
@@ -148,11 +157,11 @@ awal:
                 cout << "Belum ada data yang bisa diurutkan.\n";
             } else {
                 string key;
-                cout << "Masukan nama pemilik yang di cari: "; getline(cin, key);
+                cout << "\nMasukan nama pemilik yang di cari: "; getline(cin, key);
 
                 int index = sequentialSearch(data, jmldt, key);
                 if (index != -1){
-                    cout << "Data ditemukan pada index ke-" << index + 1 << "\n";
+                    cout << "\nData ditemukan pada index ke-" << index + 1 << "\n";
                     cout << "Nomor Plat: " << data[index].plat << endl;
                     cout << "Jenis Kendaraan: " << data[index].jenis << endl;
                     cout << "Merk Kendaraan: " << data[index].merk << endl;
@@ -163,7 +172,7 @@ awal:
                     cout << "Data tidak ditemukan!\n" << endl;
                 }
             }
-            cout << "Tekan Enter untuk kembali ke menu...";
+            cout << "\nTekan Enter untuk kembali ke menu...";
             cin.ignore();
             cin.get();
             system("cls");
@@ -172,14 +181,15 @@ awal:
 
         case '6': {
             cout << "Terimakasih sudah menggunakan program ini" << endl;
-        }
+        } break;
 
-        default:
+        default: {
             cout << "Pilihan tidak valid, silahkan pilih lagi!" << endl;
-            cout << "Tekan Enter untuk kembali ke menu...";
+            cout << "\nTekan Enter untuk kembali ke menu...";
             cin.ignore();
             cin.get();
             system("cls");
             goto awal;
+        }
     }
 }
